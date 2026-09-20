@@ -9,7 +9,7 @@
       content="Guanda Wu is a student at NUS High School of Mathematics and Science with interests in mathematics, physics, and computer science."
     >
     <meta name="author" content="Guanda Wu">
-    <meta name="theme-color" content="#f5f4f1">
+    <meta name="theme-color" content="#fcfbf8">
     <link rel="canonical" href="https://wuguanda.github.io/">
     <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
     <link rel="alternate icon" href="assets/favicon.ico">
@@ -22,9 +22,9 @@
     >
     <meta property="og:url" content="https://wuguanda.github.io/">
     <meta property="og:image" content="https://wuguanda.github.io/assets/images/guanda-wu.jpg">
-    <meta property="og:image:width" content="1500">
-    <meta property="og:image:height" content="1000">
-    <meta property="og:image:alt" content="A gathering at a European Physics Olympiad event">
+    <meta property="og:image:width" content="593">
+    <meta property="og:image:height" content="724">
+    <meta property="og:image:alt" content="Portrait of Guanda Wu">
 
     <link rel="stylesheet" href="styles.css">
     <script src="content.js" defer></script>
@@ -45,7 +45,7 @@
         </nav>
       </header>
 
-      <main id="main-content">
+      <main id="main-content" tabindex="-1">
         <section class="introduction" id="about" aria-labelledby="page-title">
           <div class="introduction-copy">
             <h1 id="page-title">Guanda Wu</h1>
@@ -60,16 +60,30 @@
             </p>
           </div>
 
-          <figure class="portrait">
-            <img
-              src="assets/images/guanda-wu.jpg"
-              alt="A gathering at a European Physics Olympiad event"
-              width="1500"
-              height="1000"
-              fetchpriority="high"
-            >
-            <figcaption>At a EuPhO event</figcaption>
-          </figure>
+          <div class="photo-carousel" id="photo-carousel" role="region"
+            aria-roledescription="carousel" aria-label="Photographs">
+            <div class="photo-frame">
+              <div class="photo-slide" role="group" aria-roledescription="slide" aria-label="1 of 2">
+                <img src="assets/images/guanda-wu.jpg" alt="Portrait of Guanda Wu"
+                  width="593" height="724" fetchpriority="high" draggable="false">
+              </div>
+              <div class="photo-slide" role="group" aria-roledescription="slide" aria-label="2 of 2" hidden>
+                <img class="event-photo" src="assets/images/eupho-event.jpg"
+                  alt="A gathering at a European Physics Olympiad event"
+                  width="1500" height="1000" loading="lazy" decoding="async" draggable="false">
+              </div>
+            </div>
+            <div class="photo-controls" hidden>
+              <button type="button" class="photo-previous" aria-label="Previous photograph">
+                <span aria-hidden="true">←</span>
+              </button>
+              <span class="photo-status" role="status" aria-atomic="true">1 of 2</span>
+              <button type="button" class="photo-next" aria-label="Next photograph">
+                <span aria-hidden="true">→</span>
+              </button>
+            </div>
+            <p class="visually-hidden" id="photo-help" hidden>Use the left and right arrow keys to change photograph. You can also swipe across the image.</p>
+          </div>
         </section>
 
         <section class="content-section" id="recognition" aria-labelledby="recognition-title">
@@ -77,7 +91,27 @@
           <ul class="recognition-list">
             <li>
               <span class="recognition-name">European Physics Olympiad (EuPhO)</span>
-              <span class="recognition-result">— Silver</span>
+              <span class="recognition-result">— Silver, <time datetime="2026">2026</time></span>
+            </li>
+            <li>
+              <span class="recognition-name">Singapore Junior Biology Olympiad (SJBO)</span>
+              <span class="recognition-result">— Gold, <time datetime="2025">2025</time></span>
+            </li>
+            <li>
+              <span class="recognition-name">Singapore Junior Chemistry Olympiad (SJChO)</span>
+              <span class="recognition-result">— Gold, <time datetime="2025">2025</time></span>
+            </li>
+            <li>
+              <span class="recognition-name">Singapore Junior Physics Olympiad (SJPO)</span>
+              <span class="recognition-result">— Gold, <time datetime="2025">2025</time></span>
+            </li>
+            <li>
+              <span class="recognition-name">Singapore Physics League (SPhL)</span>
+              <span class="recognition-result">— Gold, <time datetime="2026">2026</time></span>
+            </li>
+            <li>
+              <span class="recognition-name">Singapore Mathematical Olympiad (SMO), Open Section</span>
+              <span class="recognition-result">— Silver, <time datetime="2025">2025</time></span>
             </li>
           </ul>
         </section>
@@ -94,11 +128,12 @@
       </main>
 
       <footer class="site-footer">
-        <p>
-          Guanda Wu
-          <span aria-hidden="true">·</span>
-          <a href="https://github.com/WuGuanda" rel="me">GitHub</a>
-        </p>
+        <p>© 2026 Guanda Wu</p>
+        <div class="footer-links">
+          <a href="https://www.linkedin.com/in/guanda-wu-584243341/" target="_blank" rel="me noopener noreferrer">LinkedIn</a>
+          <!-- Insert the real channel URL in content.js to enable this link. -->
+          <a id="youtube-link" target="_blank" rel="me noopener noreferrer" hidden>YouTube</a>
+        </div>
       </footer>
     </div>
   </body>

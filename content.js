@@ -8,6 +8,8 @@
  * { title: "Title", description: "What the project does.", date: "2026", url: "https://example.com" }
  */
 window.siteContent = {
+  // Insert your real YouTube channel URL to show the footer link.
+  youtubeUrl: "",
   documents: [],
   projects: []
 };

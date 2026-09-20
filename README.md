@@ -6,11 +6,12 @@ Plain HTML, CSS, and JavaScript. No build step, dependencies, tracking, or cooki
 ## Files
 
 ```text
-index.html                 Biography, recognition, navigation, links, metadata
+index.html                 Biography, awards, photographs, links, metadata
 styles.css                 Typography, layout, light/dark colours, print styles
-content.js                 PDF documents and optional projects
-script.js                  Renders the lists in content.js
-assets/images/guanda-wu.jpg Optimized event photograph
+content.js                 PDFs, optional projects, and optional YouTube URL
+script.js                  Document/project lists and accessible photo controls
+assets/images/guanda-wu.jpg Main portrait and social preview
+assets/images/eupho-event.jpg Second carousel photograph
 assets/pdfs/               Published PDFs
 assets/favicon.svg         Main favicon
 assets/favicon.ico         Favicon fallback
@@ -20,10 +21,17 @@ assets/favicon.ico         Favicon fallback
 ## Edit the page
 
 - **Biography:** edit the introduction in `index.html`. If its short summary changes, update the description and Open Graph metadata in the same file.
-- **Achievements:** add a `<li>` to the `recognition-list` in `index.html`, following the existing EuPhO entry. Add only verified achievements.
-- **Links:** edit the footer links in `index.html`. Add an email link only when you want to publish that address.
-- **Photo:** replace `assets/images/guanda-wu.jpg` with an optimized JPEG. The current uncropped event photograph is 1500 × 1000 pixels, about 175 KB, with EXIF metadata removed. For a close portrait, a 4:5 crop at 600 × 750 pixels is sufficient. Update the image and Open Graph dimensions, alt text, and caption in `index.html` when changing the image. Keep the large original outside the repository.
+- **Achievements:** edit the six entries in `recognition-list` in `index.html`, or add another `<li>` in the same format. Keep the award, medal, and year factual.
+- **LinkedIn:** edit its footer link in `index.html`. External profile links open a new tab with `noopener noreferrer`.
+- **YouTube:** set `youtubeUrl` in `content.js` to your real channel URL. The link stays hidden while this value is empty; no dummy address is published.
+- **Photos:** replace the JPEGs in `assets/images/`. The main portrait is 593 × 724 pixels (about 60 KB); the event photo is 1500 × 1000 pixels (about 191 KB). Both have no EXIF metadata. The carousel uses a fixed 4:5 display frame with CSS `object-fit: cover`, so changing slides never shifts the page. Update each image's dimensions and alt text in `index.html` when replacing it; also update Open Graph metadata if replacing the main portrait. Keep full-resolution originals outside the repository.
 - **Appearance:** edit `styles.css`. Dark mode follows the visitor's system preference; no settings are stored.
+
+## Photo carousel
+
+The carousel has no autoplay or external library. Use the Previous/Next buttons, Left/Right arrow keys while focus is inside the carousel, or a horizontal swipe/drag across the photograph. Home/End select the first/last slide. Vertical touch scrolling and pinch zoom remain available.
+
+To add a photograph, place its optimized file in `assets/images/` and copy a `.photo-slide` block in `index.html`, updating its `src`, meaningful `alt`, and actual `width`/`height`. All slides after the first should start with `hidden`. JavaScript calculates the count and accessible slide labels. The `.event-photo` rule in `styles.css` controls the event photo's crop position. Without JavaScript, the main portrait remains visible and the inactive controls stay hidden.
 
 ## Add a PDF
 
@@ -79,6 +87,6 @@ GitHub Pages uses **Deploy from a branch → main → / (root)**. Commit changes
 
 ## Content and preservation
 
-The homepage includes only the supplied school, subjects, interests, and European Physics Olympiad Silver award. It omits age, future plans, unsupplied contact details, and unprovided projects or documents.
+The homepage includes only the supplied school, subjects, interests, six awards and years, photographs, and LinkedIn profile. It omits age, future plans, unsupplied contact details, and unprovided projects or documents. The GitHub profile is not advertised on the visible page. YouTube remains hidden until its real URL is supplied.
 
 The earlier typing-test experiment is preserved separately as `WuGuanda/WuGuanda.github.io-old`, with its original history. This repository contains the new site only.

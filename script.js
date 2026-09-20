@@ -3,6 +3,61 @@
 
   const content = window.siteContent || {};
 
+  function initializeCarousel() {
+    const carousel = document.querySelector("#photo-carousel");
+    if (!carousel) return;
+
+    const slides = [...carousel.querySelectorAll(".photo-slide")];
+    if (slides.length < 2) return;
+
+    const frame = carousel.querySelector(".photo-frame");
+    const status = carousel.querySelector(".photo-status");
+    const help = document.querySelector("#photo-help");
+    let current = 0;
+    let gesture = null;
+
+    function show(index) {
+      current = (index + slides.length) % slides.length;
+      slides.forEach((slide, position) => {
+        slide.hidden = position !== current;
+        slide.setAttribute("aria-label", `${position + 1} of ${slides.length}`);
+      });
+      status.textContent = `${current + 1} of ${slides.length}`;
+    }
+
+    carousel.querySelector(".photo-previous").addEventListener("click", () => show(current - 1));
+    carousel.querySelector(".photo-next").addEventListener("click", () => show(current + 1));
+    carousel.addEventListener("keydown", (event) => {
+      if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
+      const actions = { ArrowLeft: current - 1, ArrowRight: current + 1, Home: 0, End: slides.length - 1 };
+      if (!(event.key in actions)) return;
+      event.preventDefault();
+      show(actions[event.key]);
+    });
+
+    frame.addEventListener("pointerdown", (event) => {
+      if (event.isPrimary === false || event.button !== 0) return;
+      gesture = { id: event.pointerId, x: event.clientX, y: event.clientY };
+      frame.setPointerCapture(event.pointerId);
+    });
+    frame.addEventListener("pointerup", (event) => {
+      if (!gesture || gesture.id !== event.pointerId) return;
+      const dx = event.clientX - gesture.x;
+      const dy = event.clientY - gesture.y;
+      gesture = null;
+      if (Math.abs(dx) >= 40 && Math.abs(dx) > Math.abs(dy) * 1.3) {
+        show(current + (dx < 0 ? 1 : -1));
+      }
+    });
+    frame.addEventListener("pointercancel", () => { gesture = null; });
+
+    carousel.tabIndex = 0;
+    carousel.setAttribute("aria-describedby", "photo-help");
+    help.hidden = false;
+    carousel.querySelector(".photo-controls").hidden = false;
+    show(0);
+  }
+
   function createElement(tagName, options = {}) {
     const element = document.createElement(tagName);
 
@@ -162,6 +217,14 @@
 
   renderDocuments(content.documents);
   renderProjects(content.projects);
+  initializeCarousel();
+
+  const youtubeLink = document.querySelector("#youtube-link");
+  const youtubeUrl = cleanText(content.youtubeUrl);
+  if (youtubeLink && /^https?:\/\//i.test(youtubeUrl) && safeUrl(youtubeUrl)) {
+    youtubeLink.href = safeUrl(youtubeUrl);
+    youtubeLink.hidden = false;
+  }
   const navigation = document.querySelector("#site-navigation");
   if (navigation) {
     navigation.hidden = document.querySelector("#documents").hidden && document.querySelector("#projects").hidden;
